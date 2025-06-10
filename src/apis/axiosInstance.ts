@@ -9,7 +9,7 @@ import { ApiError } from "@/types/common.type";
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL ||
-  "https://api.wc504.io.vn/api/v1";
+  "https://enterviu.wizlab.io.vn/api/v1";
 
 
 const axiosInstance = axios.create({

@@ -5,12 +5,15 @@
       "followers": "Followers"
     },
     "title": "About Can Giuoc High School Media Club"
-  },
-  "auth": {
+  },  "auth": {
     "allowPopups": "Allow popups to sign in",
-    "bySigningIn": "By signing in, you agree to our terms.",
-    "connectingToGoogle": "Connecting to Google...",
+    "bySigningIn": "By signing in, you agree to our terms.",    "connectingToGoogle": "Connecting to Google...",
     "email": "Email",
+    "googleClientIdMissing": "Google Client ID is not configured",
+    "googleLoadFailed": "Failed to load Google authentication",
+    "googleNotAvailable": "Google services are not available",
+    "googleNotLoaded": "Google authentication is not ready",
+    "googleOauth2NotAvailable": "Google OAuth2 services are not available",
     "login": "Login",
     "loginSuccess": "Login successful",
     "loginWithGoogle": "Login with Google",

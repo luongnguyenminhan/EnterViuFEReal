@@ -6,7 +6,8 @@ import type {
   UserResponse,
   RefreshTokenRequest,
   GoogleDirectLoginRequest,
-  GoogleRevokeTokenRequest
+  GoogleRevokeTokenRequest,
+  GoogleOAuthLoginResponse
 } from "../types/auth.type";
 
 const authApi = {
@@ -156,6 +157,18 @@ const authApi = {
     
     return handleApiCall<UserResponse>(() => 
       axiosInstance.get('/users/me', config)
+    );
+  },  /**
+   * Google OAuth login with credential (send as plain string)
+   * POST /auth/login/google/oauth
+   */
+  googleOAuthLogin: async (credential: string): Promise<GoogleOAuthLoginResponse | null> => {
+    return handleApiCall<GoogleOAuthLoginResponse>(() => 
+      axiosInstance.post('/auth/login/google/oauth', credential, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
     );
   },
 };

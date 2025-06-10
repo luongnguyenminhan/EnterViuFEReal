@@ -50,6 +50,16 @@ export interface OAuthUserInfo {
   picture?: string | null;
 }
 
+// Google OAuth Login Response
+export interface GoogleOAuthLoginResponse {
+  statusCode: number;
+  message: string;
+  data: {
+    accessToken: string;
+    refreshToken: string;
+  };
+}
+
 // Response Types
 export type SearchUserResponse = CommonResponse<Pagination<UserResponse>>;
 export type GoogleLoginResponse = CommonResponse<UserResponse>;

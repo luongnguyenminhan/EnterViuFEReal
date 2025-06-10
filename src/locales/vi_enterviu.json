@@ -5,12 +5,15 @@
       "followers": "Người theo dõi"
     },
     "title": "Giới thiệu CLB Truyền thông THPT Cần Giuộc"
-  },
-  "auth": {
+  },  "auth": {
     "allowPopups": "Cho phép cửa sổ bật lên để đăng nhập",
-    "bySigningIn": "Bằng việc đăng nhập, bạn đồng ý với điều khoản của chúng tôi.",
-    "connectingToGoogle": "Đang kết nối với Google...",
+    "bySigningIn": "Bằng việc đăng nhập, bạn đồng ý với điều khoản của chúng tôi.",    "connectingToGoogle": "Đang kết nối với Google...",
     "email": "Email",
+    "googleClientIdMissing": "Chưa cấu hình Google Client ID",
+    "googleLoadFailed": "Không thể tải xác thực Google",
+    "googleNotAvailable": "Dịch vụ Google không khả dụng",
+    "googleNotLoaded": "Xác thực Google chưa sẵn sàng",
+    "googleOauth2NotAvailable": "Dịch vụ Google OAuth2 không khả dụng",
     "login": "Đăng nhập",
     "loginSuccess": "Đăng nhập thành công",
     "loginWithGoogle": "Đăng nhập với Google",
