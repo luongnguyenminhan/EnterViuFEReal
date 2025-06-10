@@ -1,23 +1,46 @@
-import { CommonResponse, RequestSchema, FilterableRequestSchema, Pagination } from './common.type';
+import {
+  CommonResponse,
+  RequestSchema,
+  FilterableRequestSchema,
+  Pagination,
+} from "./common.type";
 
-// User Response matching Python UserResponse
+// User Response matching actual API response
 export interface UserResponse {
-  id: string;
+  statusCode: number;
+  message: string;
+  data: {
+    id: number;
+    email: string;
+    passwordHash?: string | null;
+    name?: string | null;
+    phone?: string | null;
+    province?: string | null;
+    district?: string | null;
+    ward?: string | null;
+    addressBonus?: string | null;
+    avatarUrl?: string | null;
+    googleId?: string | null;
+    role: number;
+    fcmtoken?: string | null;
+  };
+}
+
+// User data only (for use in app state)
+export interface UserData {
+  id: number;
   email: string;
-  role: string;
+  passwordHash?: string | null;
   name?: string | null;
-  username: string;
-  confirmed: boolean;
-  create_date?: string | null;
-  update_date?: string | null;
-  profile_picture?: string | null;
-  first_name?: string | null;
-  last_name?: string | null;
-  locale?: string | null;
-  google_id?: string | null;
-  access_token?: string | null;
-  refresh_token?: string | null;
-  token_type?: string | null;
+  phone?: string | null;
+  province?: string | null;
+  district?: string | null;
+  ward?: string | null;
+  addressBonus?: string | null;
+  avatarUrl?: string | null;
+  googleId?: string | null;
+  role: number;
+  fcmtoken?: string | null;
 }
 
 // Search User Request matching Python SearchUserRequest
@@ -50,7 +73,7 @@ export interface OAuthUserInfo {
   picture?: string | null;
 }
 
-// Google OAuth Login Response
+// Google OAuth Login Response (matches actual API response structure)
 export interface GoogleOAuthLoginResponse {
   statusCode: number;
   message: string;
@@ -61,11 +84,11 @@ export interface GoogleOAuthLoginResponse {
 }
 
 // Response Types
-export type SearchUserResponse = CommonResponse<Pagination<UserResponse>>;
-export type GoogleLoginResponse = CommonResponse<UserResponse>;
-export type TokenRefreshResponse = CommonResponse<UserResponse>;
+export type SearchUserResponse = CommonResponse<Pagination<UserData>>;
+export type GoogleLoginResponse = CommonResponse<UserData>;
+export type TokenRefreshResponse = CommonResponse<UserData>;
 export type GoogleRevokeResponse = CommonResponse<null>;
-export type MeResponse = CommonResponse<UserResponse>;
+export type MeResponse = CommonResponse<UserData>;
 
 // Legacy type aliases for backward compatibility with existing code
 export type TokenRefreshRequest = RefreshTokenRequest;

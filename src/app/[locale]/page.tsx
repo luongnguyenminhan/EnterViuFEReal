@@ -161,9 +161,8 @@ async function Home({ user, isAuthenticated }: HomeProps) {
 
       <HeroSection
         user={user}
-        isAuthenticated={isAuthenticated}
-        welcomeTitle={isAuthenticated 
-          ? t('home.welcomeBack', { name: user?.name || user?.username || '' })
+        isAuthenticated={isAuthenticated}        welcomeTitle={isAuthenticated 
+          ? t('home.welcomeBack', { name: user?.data.name || user?.data.email || '' })
           : t('home.title')
         }
         description={isAuthenticated 

@@ -24,10 +24,9 @@ async function ProfilePage({ user }: ProfilePageProps) {
           <div className="flex flex-col md:flex-row gap-8">
             {/* Profile Picture Section */}
             <div className="flex flex-col items-center space-y-4">
-              <div className="relative">
-                <Image
-                  src={user.profile_picture || '/file.svg'}
-                  alt={user.name || user.username}
+              <div className="relative">                <Image
+                  src={user.data.avatarUrl || '/file.svg'}
+                  alt={user.data.name || user.data.email}
                   width={128}
                   height={128}
                   className="rounded-full border-4 border-[color:var(--gradient-text-from)] shadow-lg"
@@ -47,7 +46,7 @@ async function ProfilePage({ user }: ProfilePageProps) {
                   </label>
                   <input
                     type="text"
-                    value={user.name || ''}
+                    value={user.data.name || ''}
                     readOnly
                     className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white"
                   />
@@ -59,7 +58,7 @@ async function ProfilePage({ user }: ProfilePageProps) {
                   </label>
                   <input
                     type="text"
-                    value={user.username}
+                    value={user.data.name || user.data.email}
                     readOnly
                     className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white"
                   />
@@ -71,7 +70,7 @@ async function ProfilePage({ user }: ProfilePageProps) {
                   </label>
                   <input
                     type="email"
-                    value={user.email}
+                    value={user.data.email}
                     readOnly
                     className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white"
                   />
@@ -83,7 +82,7 @@ async function ProfilePage({ user }: ProfilePageProps) {
                   </label>
                   <input
                     type="text"
-                    value={user.role}
+                    value={user.data.role}
                     readOnly
                     className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white"
                   />

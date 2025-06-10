@@ -6,10 +6,8 @@ interface LoginSuccessPayload {
     id: string;
     email: string;
     username: string;
-    name?: string;
-    profile_picture?: string;
     confirmed: boolean;
-    role_id?: string;
+    profile_picture?: string;
   };
 }
 

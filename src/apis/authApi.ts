@@ -138,38 +138,50 @@ const authApi = {
       axiosInstance.post('/auth/google/revoke', tokenRequest)
     );
   },
-
   /**
    * Get current authenticated user information
    * This endpoint returns detailed information about the current user
    */
   getMe: async (headers?: Record<string, string>): Promise<UserResponse | null> => {
-    console.log('API Call: getMe with token', axiosInstance.defaults.headers.common['Authorization']);
-    
-    // Ensure the Authorization header is properly set
-    const accessToken = Cookies.get('access_token');
-    if (accessToken) {
-      authApi.setToken(accessToken);
-      console.log('API Call: getMe - Re-set Authorization header with token from cookies');
+    try {
+      console.log('API Call: getMe with token', axiosInstance.defaults.headers.common['Authorization']);
+      
+      // Ensure the Authorization header is properly set
+      const accessToken = Cookies.get('access_token');
+      if (accessToken) {
+        authApi.setToken(accessToken);
+        console.log('API Call: getMe - Re-set Authorization header with token from cookies');
+      }
+      
+      const config = headers ? { headers } : undefined;
+      
+      const response = await axiosInstance.get('/users/me', config);
+      
+      console.log('API Response: getMe', response.data);
+      return response.data;
+    } catch (error: unknown) {
+      console.error('Error in getMe:', error);
+      throw error;
     }
-    
-    const config = headers ? { headers } : undefined;
-    
-    return handleApiCall<UserResponse>(() => 
-      axiosInstance.get('/users/me', config)
-    );
-  },  /**
+  },/**
    * Google OAuth login with credential (send as plain string)
    * POST /auth/login/google/oauth
    */
   googleOAuthLogin: async (credential: string): Promise<GoogleOAuthLoginResponse | null> => {
-    return handleApiCall<GoogleOAuthLoginResponse>(() => 
-      axiosInstance.post('/auth/login/google/oauth', credential, {
+    try {
+      console.log('API Call: googleOAuthLogin');
+      const response = await axiosInstance.post('/auth/login/google/oauth', credential, {
         headers: {
           'Content-Type': 'application/json'
         }
-      })
-    );
+      });
+      
+      console.log('API Response: googleOAuthLogin', response.data);
+      return response.data;
+    } catch (error: unknown) {
+      console.error('Error in googleOAuthLogin:', error);
+      throw error;
+    }
   },
 };
 

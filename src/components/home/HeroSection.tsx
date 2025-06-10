@@ -26,9 +26,8 @@ export default function HeroSection({
         <FallingText variant="bounce" delay={0.2} duration={1.5}>
           <div 
             className="text-5xl md:text-7xl lg:text-8xl font-bold bg-clip-text text-transparent leading-tight bg-gradient-to-r from-[color:var(--gradient-text-from)] via-[color:var(--gradient-text-via)] to-[color:var(--gradient-text-to)] mb-8"
-          >
-            {isAuthenticated 
-              ? welcomeTitle.replace('{name}', user?.name || user?.username || '')
+          >            {isAuthenticated 
+              ? welcomeTitle.replace('{name}', user?.data.name || user?.data.email || '')
               : welcomeTitle
             }
           </div>

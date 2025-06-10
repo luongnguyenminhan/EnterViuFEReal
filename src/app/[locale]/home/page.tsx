@@ -15,22 +15,21 @@ async function HomePage({ user }: HomePageProps) {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
-      <div className="p-8">
-        <h1 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
-          {t('home.welcomeBack')}, {user.name || user.username}!
+      <div className="p-8">        <h1 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
+          {t('home.welcomeBack')}, {user.data.name || user.data.email}!
         </h1>
         <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg border border-gray-200 dark:border-gray-700 transition-colors duration-200">
           <h2 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white">
             {t('home.userInformation')}
           </h2>
           <p className="text-gray-700 dark:text-gray-300">
-            <strong>{t('home.email')}:</strong> {user.email}
+            <strong>{t('home.email')}:</strong> {user.data.email}
           </p>
           <p className="text-gray-700 dark:text-gray-300">
-            <strong>{t('home.username')}:</strong> {user.username}
+            <strong>{t('home.username')}:</strong> {user.data.name || user.data.email}
           </p>
           <p className="text-gray-700 dark:text-gray-300">
-            <strong>{t('home.confirmed')}:</strong> {user.confirmed ? t('common.yes') : t('common.no')}
+            <strong>{t('home.confirmed')}:</strong> {user.data.googleId ? t('common.yes') : t('common.no')}
           </p>
         </div>
       </div>

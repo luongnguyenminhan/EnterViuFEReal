@@ -24,19 +24,15 @@ export default function AuthHeader({ user: serverUser, locale }: AuthHeaderProps
   const dispatch = useAppDispatch();
   const { user, isAuthenticated } = useAppSelector((state) => state.auth);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const router = useRouter();
-
-  // Sync server user data with Redux store after getMe call
+  const router = useRouter();  // Sync server user data with Redux store after getMe call
   useEffect(() => {
-    if (serverUser && (!user || user.id !== serverUser.id)) {
+    if (serverUser && (!user || user.id !== serverUser.data.id.toString())) {
       dispatch(setUser({
-        id: serverUser.id,
-        email: serverUser.email,
-        username: serverUser.username,
-        name: serverUser.name || undefined,
-        profile_picture: serverUser.profile_picture || undefined,
-        confirmed: serverUser.confirmed,
-        role_id: serverUser.role || undefined,
+        id: serverUser.data.id.toString(),
+        email: serverUser.data.email,
+        username: serverUser.data.name || serverUser.data.email,
+        confirmed: true,
+        profile_picture: serverUser.data.avatarUrl || undefined,
       }));
     } else if (!serverUser && isAuthenticated) {
       dispatch(logoutUser());
@@ -73,20 +69,19 @@ export default function AuthHeader({ user: serverUser, locale }: AuthHeaderProps
           type="button"
           className="flex items-center gap-2 bg-white/60 dark:bg-gray-800/60 px-2 py-1 rounded-xl shadow-md backdrop-blur-md transition-all duration-300 hover:bg-white/80 dark:hover:bg-gray-700/80 group cursor-pointer focus:outline-none min-h-0 h-8"
           tabIndex={0}
-        >
-          <Image
-            src={currentUser.profile_picture || '/file.svg'}
-            alt={currentUser.name || currentUser.username}
+        >          <Image
+            src={currentUser.data.avatarUrl || '/file.svg'}
+            alt={currentUser.data.name || currentUser.data.email}
             width={24}
             height={24}
             className="rounded-full border border-[color:var(--gradient-text-from)] shadow-sm"
           />
           <div className="flex flex-col text-right">
             <span className="font-semibold text-gray-900 dark:text-white text-xs truncate max-w-[120px]">
-              {currentUser.name || "Unnamed User"}
+              {currentUser.data.name || "Unnamed User"}
             </span>
             <span className="text-[10px] text-gray-500 dark:text-gray-300 truncate max-w-[120px]">
-              {currentUser.email}
+              {currentUser.data.email}
             </span>
           </div>
           <svg 

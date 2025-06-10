@@ -41,11 +41,10 @@ export default function LoginModal({
   const googleButtonRef = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const { isAuthenticated } = useAppSelector((state) => state.auth);  // Handle Google OAuth callback
+  const { isAuthenticated } = useAppSelector((state) => state.auth); // Handle Google OAuth callback
   const handleGoogleCallback = useCallback(
     async (response: GoogleIdResponse) => {
       try {
-
         console.log(
           "Google credential response received ",
           response.credential
@@ -94,11 +93,11 @@ export default function LoginModal({
             dispatch(
               loginSuccess({
                 user: {
-                  id: userDetails.id,
-                  email: userDetails.email,
-                  username: userDetails.username,
-                  confirmed: userDetails.confirmed,
-                  role_id: userDetails.role || undefined,
+                  id: userDetails.data.id.toString(),
+                  email: userDetails.data.email,
+                  username: userDetails.data.name || userDetails.data.email,
+                  confirmed: true,
+                  profile_picture: userDetails.data.avatarUrl || undefined,
                 },
               })
             );
@@ -160,11 +159,12 @@ export default function LoginModal({
           5
         );
       }
-    };    if (isOpen) {
+    };
+    if (isOpen) {
       // Reset state when modal opens
       initializeGoogleOAuth();
     }
-  }, [t, isOpen]);// Initialize Google OAuth when loaded
+  }, [t, isOpen]); // Initialize Google OAuth when loaded
   useEffect(() => {
     if (isGoogleLoaded && window.google && window.google.accounts) {
       // Initialize Google OAuth
@@ -173,17 +173,18 @@ export default function LoginModal({
         callback: handleGoogleCallback,
         auto_select: false,
         cancel_on_tap_outside: true,
-      });      // Render Google button if ref is available
+      }); // Render Google button if ref is available
       if (googleButtonRef.current) {
         // Clear any existing content
-        googleButtonRef.current.innerHTML = '';
+        googleButtonRef.current.innerHTML = "";
         window.google.accounts.id.renderButton(googleButtonRef.current, {
-          theme: 'outline',
-          size: 'large',
-          width: '100%'
+          theme: "outline",
+          size: "large",
+          width: "100%",
         });
       }
-    }  }, [isGoogleLoaded, handleGoogleCallback]);
+    }
+  }, [isGoogleLoaded, handleGoogleCallback]);
 
   return (
     <Modal
@@ -213,24 +214,37 @@ export default function LoginModal({
     >
       <div className="p-8">
         <Space direction="vertical" size="large" className="w-full">
-          <div className="text-center space-y-4">
+          <div className="text-center">
             <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[color:var(--gradient-text-from)] via-[color:var(--gradient-text-via)] to-[color:var(--gradient-text-to)]">
               {t("auth.login") || "Login"}
             </h1>
-            <p className="text-gray-600 dark:text-gray-300 text-lg font-medium">
+            <p className="text-gray-600 dark:text-gray-300 text-lg font-medium mt-2">
               {t("auth.loginWithGoogle") || "Sign in with your Google account"}
             </p>
-          </div>          <div className="w-full mt-8 space-y-4">
-            {/* Google Rendered Button */}
-            <div className="w-full">
-              <div 
-                ref={googleButtonRef} 
-                className="w-full flex justify-center"
-                style={{ minHeight: '56px' }}
-              />
-            </div>
           </div>
+          <div className="w-full">
+            {/* Google Rendered Button Container */}
+            <div
+              ref={googleButtonRef}
+              className="w-full flex justify-center items-center"
+              style={{
+                minHeight: "56px",
+                borderRadius: "20px",
+              }}
+            />
 
+            {/* Loading state for Google button */}
+            {!isGoogleLoaded && (
+              <div className="w-full bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4">
+                <div className="flex items-center justify-center h-14 bg-gray-50 dark:bg-gray-700 rounded-lg animate-pulse">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-5 h-5 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
+                    <div className="w-32 h-4 bg-gray-300 dark:bg-gray-600 rounded-md"></div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
           <div className="text-center mt-6 pt-4 border-t border-gray-100 dark:border-gray-700">
             <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
               {t("auth.bySigningIn") ||

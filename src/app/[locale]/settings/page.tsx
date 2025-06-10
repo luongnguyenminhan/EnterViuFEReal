@@ -32,9 +32,8 @@ async function SettingsPage({ user }: SettingsPageProps) {
                 <div>
                   <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
                     {t('settings.currentUser')}
-                  </p>
-                  <p className="font-medium text-gray-900 dark:text-white">
-                    {user.name || user.username} ({user.email})
+                  </p>                  <p className="font-medium text-gray-900 dark:text-white">
+                    {user.data.name || user.data.email} ({user.data.email})
                   </p>
                 </div>
                 <div className="flex gap-4">
